@@ -18,8 +18,12 @@ export class ReviewRecord {
   @Prop()
   comment?: string;
 
+  @Prop({ required: true, min: 1 })
+  assetVersion!: number;
+
   @Prop({ default: () => new Date() })
   reviewedAt!: Date;
 }
 
 export const ReviewRecordSchema = SchemaFactory.createForClass(ReviewRecord);
+ReviewRecordSchema.index({ assetId: 1, assetVersion: 1 }, { unique: true });

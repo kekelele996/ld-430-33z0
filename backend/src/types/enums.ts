@@ -51,3 +51,17 @@ export enum UserRole {
   Uploader = 'Uploader',
   Viewer = 'Viewer',
 }
+
+export enum ClaimStatus {
+  Active = 'Active',
+  Released = 'Released',
+  Consumed = 'Consumed',
+}
+
+export enum ClaimAction {
+  Claimed = 'Claimed',
+  Released = 'Released',
+  Expired = 'Expired',
+  Consumed = 'Consumed',
+  Reviewed = 'Reviewed',
+}

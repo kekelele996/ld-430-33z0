@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Query, Req } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import type { Request } from 'express';
 import { ASSET_ROUTES } from '../routes/asset.routes';
 import { AssetService } from '../services/asset.service';
 import { Asset } from '../models/asset.schema';
 import { AssetStatus } from '../types/enums';
+import type { AuthUser } from '../types/interfaces';
 import { ok } from '../utils/response';
 
 @ApiTags('assets')
@@ -37,7 +39,7 @@ export class AssetController {
   }
 
   @Post(ASSET_ROUTES.archive)
-  async archive(@Param('id') id: string) {
-    return ok(await this.assetService.archive(id), '素材已归档');
+  async archive(@Param('id') id: string, @Req() req: Request & { user?: AuthUser }) {
+    return ok(await this.assetService.archive(id, req.user), '素材已归档');
   }
 }

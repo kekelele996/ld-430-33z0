@@ -50,6 +50,9 @@ export class Asset {
 
   @Prop({ default: 0 })
   viewCount!: number;
+
+  @Prop({ default: 1, min: 1 })
+  version!: number;
 }
 
 export const AssetSchema = SchemaFactory.createForClass(Asset);
