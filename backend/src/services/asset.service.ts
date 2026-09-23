@@ -30,6 +30,13 @@ export class AssetService {
     return asset;
   }
 
+  /** 仅读取不累计浏览量，供审核认领等内部流程使用 */
+  async findById(id: string) {
+    const asset = await this.assetModel.findById(id).exec();
+    if (!asset) throw new NotFoundException('素材不存在');
+    return asset;
+  }
+
   async create(payload: Partial<Asset>) {
     if (!payload.assetType || !payload.fileFormat || !validateFileFormat(payload.assetType, payload.fileFormat)) {
       throw new BadRequestException('文件格式与素材类型不匹配');

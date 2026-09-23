@@ -11,3 +11,12 @@ export interface ApiResponse<T> {
   data: T;
   message?: string;
 }
+
+export interface ClaimStatus {
+  assetId: string;
+  claimed: boolean;
+  claimedBy?: string;
+  claimedAt?: Date;
+  expiresAt?: Date;
+  remainingMs?: number;
+}

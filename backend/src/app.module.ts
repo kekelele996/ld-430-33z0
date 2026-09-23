@@ -13,11 +13,14 @@ import { Category, CategorySchema } from './models/category.schema';
 import { Collection, CollectionSchema } from './models/collection.schema';
 import { DownloadRecord, DownloadRecordSchema } from './models/downloadRecord.schema';
 import { ReviewRecord, ReviewRecordSchema } from './models/reviewRecord.schema';
+import { ReviewClaim, ReviewClaimSchema } from './models/reviewClaim.schema';
+import { ReviewClaimLog, ReviewClaimLogSchema } from './models/reviewClaimLog.schema';
 import { Tag, TagSchema } from './models/tag.schema';
 import { AssetService } from './services/asset.service';
 import { CategoryService } from './services/category.service';
 import { CollectionService } from './services/collection.service';
 import { DownloadService } from './services/download.service';
+import { ReviewClaimService } from './services/reviewClaim.service';
 import { ReviewService } from './services/review.service';
 import { StorageService } from './services/storage.service';
 import { TagService } from './services/tag.service';
@@ -37,11 +40,13 @@ import { ValidationMiddleware } from './middlewares/validation.middleware';
       { name: Collection.name, schema: CollectionSchema },
       { name: DownloadRecord.name, schema: DownloadRecordSchema },
       { name: ReviewRecord.name, schema: ReviewRecordSchema },
+      { name: ReviewClaim.name, schema: ReviewClaimSchema },
+      { name: ReviewClaimLog.name, schema: ReviewClaimLogSchema },
       { name: Tag.name, schema: TagSchema },
     ]),
   ],
   controllers: [HealthController, AssetController, CategoryController, CollectionController, DownloadController, ReviewController, TagController],
-  providers: [AssetService, CategoryService, CollectionService, DownloadService, ReviewService, StorageService, TagService],
+  providers: [AssetService, CategoryService, CollectionService, DownloadService, ReviewService, ReviewClaimService, StorageService, TagService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

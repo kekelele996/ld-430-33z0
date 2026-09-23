@@ -32,26 +32,28 @@ MinIO Console 地址：http://localhost:9001
 - `GET /collections`、`POST /collections`、`PATCH /collections/:id/assets/:assetId`：收藏夹与协作素材集。
 - `POST /assets/:assetId/downloads`、`GET /downloads`：下载记录和许可校验。
 - `GET /tags`、`POST /tags`：标签管理。
-- `POST /reviews/assets/:assetId`、`GET /reviews`：素材审核记录。
+- `POST /reviews/assets/:assetId`、`GET /reviews`：素材审核记录（需先认领，同版本重复提交只保留最先记录）。
+- `POST /reviews/assets/:assetId/claim`、`POST /reviews/assets/:assetId/release`：审核认领与放弃（Admin/Moderator，认领有效期两小时，归档素材不可认领）。
+- `GET /reviews/assets/:assetId/claim`、`GET /reviews/assets/:assetId/claim-logs`：认领状态（占用人/截止时间）与认领操作日志。
 
 ## 目录结构
 
 ```text
 backend/src/
-├── routes/           # asset.routes.ts, category.routes.ts, collection.routes.ts, download.routes.ts, tag.routes.ts
-├── controllers/      # asset.controller.ts, category.controller.ts, collection.controller.ts, download.controller.ts, tag.controller.ts
-├── services/         # asset.service.ts, category.service.ts, collection.service.ts, download.service.ts, tag.service.ts, review.service.ts, storage.service.ts
-├── models/           # asset.schema.ts, category.schema.ts, collection.schema.ts, downloadRecord.schema.ts, tag.schema.ts, reviewRecord.schema.ts
+├── routes/           # asset.routes.ts, category.routes.ts, collection.routes.ts, download.routes.ts, tag.routes.ts, review.routes.ts
+├── controllers/      # asset.controller.ts, category.controller.ts, collection.controller.ts, download.controller.ts, tag.controller.ts, review.controller.ts
+├── services/         # asset.service.ts, category.service.ts, collection.service.ts, download.service.ts, tag.service.ts, review.service.ts, reviewClaim.service.ts, storage.service.ts
+├── models/           # asset.schema.ts, category.schema.ts, collection.schema.ts, downloadRecord.schema.ts, tag.schema.ts, reviewRecord.schema.ts, reviewClaim.schema.ts, reviewClaimLog.schema.ts
 ├── middlewares/      # auth.middleware.ts, rbac.middleware.ts, auditLog.middleware.ts, errorHandler.middleware.ts, rateLimit.middleware.ts, requestLogger.middleware.ts, validation.middleware.ts
 ├── types/            # enums.ts, interfaces.ts
 ├── utils/            # logger.ts, response.ts, fileValidator.ts, thumbnailGenerator.ts
-├── config/           # database.config.ts, jwt.config.ts, redis.config.ts, minio.config.ts, swagger.config.ts
+├── config/           # database.config.ts, jwt.config.ts, redis.config.ts, minio.config.ts, swagger.config.ts, reviewClaim.config.ts
 └── database/         # seeds/
 ```
 
 ## 枚举位置
 
-共享枚举统一位于 `backend/src/types/enums.ts`，包含 `AssetType`、`LicenseType`、`AssetStatus`、`ReviewResult`、`DownloadPurpose`、`TagCategory` 和 `UserRole`。
+共享枚举统一位于 `backend/src/types/enums.ts`，包含 `AssetType`、`LicenseType`、`AssetStatus`、`ReviewResult`、`ClaimAction`、`DownloadPurpose`、`TagCategory` 和 `UserRole`。
 
 ## License
 

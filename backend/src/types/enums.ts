@@ -30,6 +30,13 @@ export enum ReviewResult {
   NeedsRevision = 'NeedsRevision',
 }
 
+export enum ClaimAction {
+  Claim = 'Claim',
+  Release = 'Release',
+  Expire = 'Expire',
+  Review = 'Review',
+}
+
 export enum DownloadPurpose {
   Personal = 'Personal',
   Commercial = 'Commercial',

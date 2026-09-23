@@ -18,8 +18,13 @@ export class ReviewRecord {
   @Prop()
   comment?: string;
 
+  /** 被审核素材的版本标识（取素材 updatedAt），同版本重复提交只保留最先记录 */
+  @Prop({ required: true })
+  assetVersion!: Date;
+
   @Prop({ default: () => new Date() })
   reviewedAt!: Date;
 }
 
 export const ReviewRecordSchema = SchemaFactory.createForClass(ReviewRecord);
+ReviewRecordSchema.index({ assetId: 1, assetVersion: 1 }, { unique: true });
